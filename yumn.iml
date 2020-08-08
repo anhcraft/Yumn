@@ -21,17 +21,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.spigotmc:spigot:1.15.2-R0.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:jvmkit:1.1.4" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.spigotmc:spigot:1.16.1-R0.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:jvmkit:1.1.5" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:18.0.0" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:acf-paper:0.5.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: co.aikar:acf-bukkit:0.5.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: co.aikar:acf-core:0.5.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: co.aikar:Table:1.0.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: co.aikar:DelegatingMap:1.0.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: co.aikar:locales:1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: net.jodah:expiringmap:0.5.8" level="project" />
-    <orderEntry type="library" name="Maven: co.aikar:minecraft-timings:1.0.4" level="project" />
     <orderEntry type="library" name="Maven: it.unimi.dsi:fastutil:8.3.1" level="project" />
     <orderEntry type="library" name="Maven: it.unimi.dsi:dsiutils:2.6.5" level="project" />
     <orderEntry type="library" name="Maven: com.martiansoftware:jsap:2.1" level="project" />

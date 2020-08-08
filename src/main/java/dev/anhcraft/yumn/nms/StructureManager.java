@@ -2,12 +2,12 @@ package dev.anhcraft.yumn.nms;
 
 import com.google.common.collect.ImmutableList;
 import dev.anhcraft.yumn.Yumn;
-import net.minecraft.server.v1_15_R1.*;
+import net.minecraft.server.v1_16_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.libs.org.apache.commons.io.FilenameUtils;
-import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_15_R1.block.data.CraftBlockData;
+import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R1.block.data.CraftBlockData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -165,10 +165,10 @@ public class StructureManager {
             TileEntity te = world.getTileEntity(pos);
             if(te != null) {
                 NBTTagCompound tileEntity = b.getCompound("tileEntity").clone();
-                tileEntity.setInt("x", b.getInt("x"));
-                tileEntity.setInt("y", b.getInt("y"));
-                tileEntity.setInt("z", b.getInt("z"));
-                world.setTileEntity(pos, TileEntity.create(tileEntity));
+                tileEntity.setInt("x", pos.getX());
+                tileEntity.setInt("y", pos.getY());
+                tileEntity.setInt("z", pos.getZ());
+                world.setTileEntity(pos, TileEntity.create(world.getType(pos), tileEntity));
             }
         }
     }

@@ -6,7 +6,7 @@
 
     <groupId>dev.anhcraft</groupId>
     <artifactId>yumn</artifactId>
-    <version>1.0.0.2</version>
+    <version>1.0.0.3</version>
     <packaging>jar</packaging>
 
     <name>Yumn</name>
@@ -99,13 +99,13 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.15.2-R0.1-SNAPSHOT</version>
+            <version>1.16.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>dev.anhcraft</groupId>
             <artifactId>jvmkit</artifactId>
-            <version>1.1.4</version>
+            <version>1.1.5</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

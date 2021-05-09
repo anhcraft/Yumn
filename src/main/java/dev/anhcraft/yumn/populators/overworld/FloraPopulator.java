@@ -1,14 +1,17 @@
 package dev.anhcraft.yumn.populators.overworld;
 
 import dev.anhcraft.yumn.Structure;
-import dev.anhcraft.yumn.generators.overworld.OverworldGenerator;
+import dev.anhcraft.yumn.generators.WorldGenerator;
 import dev.anhcraft.yumn.nms.FastBlockModifier;
 import dev.anhcraft.yumn.populators.OverworldPopulator;
 import dev.anhcraft.yumn.utils.BiomeCollection;
 import dev.anhcraft.yumn.utils.MaterialCollection;
 import dev.anhcraft.yumn.utils.RandomUtil;
 import it.unimi.dsi.util.XoRoShiRo128StarStarRandomGenerator;
-import org.bukkit.*;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -34,7 +37,7 @@ public class FloraPopulator extends OverworldPopulator {
         F1_FLOWERS.add(Material.BLUE_ORCHID);
     }
 
-    public FloraPopulator(OverworldGenerator generator) {
+    public FloraPopulator(WorldGenerator generator) {
         super(generator);
     }
 
@@ -42,7 +45,7 @@ public class FloraPopulator extends OverworldPopulator {
     public void populate(@NotNull World world, @NotNull XoRoShiRo128StarStarRandomGenerator random, @NotNull Chunk chunk) {
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
-                if (random.nextInt(3) != 0) continue;
+                if (random.nextInt(6) != 0) continue;
                 int y = getGenerator().LAND_LEVEL;
                 Location loc = new Location(
                         world,
@@ -53,16 +56,16 @@ public class FloraPopulator extends OverworldPopulator {
                 for (; y <= getGenerator().getMaxNaturalHeight(); y++) {
                     loc.setY(y);
                     Block b = loc.getBlock();
-                    if(b.getType() == Material.GRASS_BLOCK) {
+                    if (b.getType() == Material.GRASS_BLOCK) {
                         Biome biome = b.getBiome();
-                        if(biome == Biome.PLAINS && random.nextInt(150) == 0) {
+                        if (biome == Biome.PLAINS && random.nextInt(150) == 0) {
                             Structure.OAK_TREE_1.spawn(loc.clone().add(0, 1, 0), true);
-                        } else if(biome == Biome.BAMBOO_JUNGLE || biome == Biome.BAMBOO_JUNGLE_HILLS) {
+                        } else if (biome == Biome.BAMBOO_JUNGLE || biome == Biome.BAMBOO_JUNGLE_HILLS) {
                             int h = RandomUtil.rand(random, 12, 18);
                             int hh = h - RandomUtil.rand(random, 3, 5);
                             for (int i = 0; i < h; i++) {
                                 if ((b = b.getRelative(BlockFace.UP)).isEmpty()) {
-                                    if(i >= hh) {
+                                    if (i >= hh) {
                                         Bamboo bb = (Bamboo) Material.BAMBOO.createBlockData();
                                         bb.setLeaves(Bamboo.Leaves.values()[random.nextInt(Bamboo.Leaves.values().length)]);
                                         FastBlockModifier.change(b, bb);
@@ -74,7 +77,7 @@ public class FloraPopulator extends OverworldPopulator {
                                     break;
                                 }
                             }
-                        } else if(biome == Biome.BEACH || biome == Biome.SNOWY_BEACH || BiomeCollection.AQUATIC.contains(biome)) {
+                        } else if (biome == Biome.BEACH || biome == Biome.SNOWY_BEACH || BiomeCollection.AQUATIC.contains(biome)) {
                             int h = RandomUtil.rand(random, 3, 5);
                             for (int i = 0; i < h; i++) {
                                 if ((b = b.getRelative(BlockFace.UP)).isEmpty()) {
@@ -84,7 +87,7 @@ public class FloraPopulator extends OverworldPopulator {
                                     break;
                                 }
                             }
-                        } else if((biome == Biome.FOREST || biome == Biome.FLOWER_FOREST) && random.nextInt(20) == 0) {
+                        } else if ((biome == Biome.FOREST || biome == Biome.FLOWER_FOREST) && random.nextInt(30) == 0) {
                             Structure structure = null;
                             switch (random.nextInt(12)) {
                                 case 0:
@@ -116,7 +119,7 @@ public class FloraPopulator extends OverworldPopulator {
                                 }
                             }
                             Objects.requireNonNull(structure).spawn(loc.clone().add(0, 1, 0), true);
-                        } else if((biome == Biome.BIRCH_FOREST || biome == Biome.BIRCH_FOREST_HILLS) && random.nextInt(20) == 0) {
+                        } else if ((biome == Biome.BIRCH_FOREST || biome == Biome.BIRCH_FOREST_HILLS) && random.nextInt(30) == 0) {
                             Structure structure = null;
                             switch (random.nextInt(7)) {
                                 case 0:
@@ -137,15 +140,15 @@ public class FloraPopulator extends OverworldPopulator {
                                 }
                             }
                             Objects.requireNonNull(structure).spawn(loc.clone().add(0, 1, 0), true);
-                        } else if((biome == Biome.SWAMP || biome == Biome.SWAMP_HILLS) && random.nextInt(20) == 0) {
+                        } else if ((biome == Biome.SWAMP || biome == Biome.SWAMP_HILLS) && random.nextInt(30) == 0) {
                             Structure.SWAMP_OAK_TREE_1.spawn(loc.clone().add(0, 1, 0), true);
-                        } else if((biome == Biome.JUNGLE || biome == Biome.JUNGLE_HILLS) && random.nextInt(20) == 0) {
+                        } else if ((biome == Biome.JUNGLE || biome == Biome.JUNGLE_HILLS) && random.nextInt(20) == 0) {
                             if (random.nextInt(6) == 0) {
                                 Structure.JUNGLE_TREE_1.spawn(loc.clone().add(0, 1, 0), true);
                             } else {
                                 FastBlockModifier.change(b.getRelative(BlockFace.UP), Material.JUNGLE_LEAVES);
                             }
-                        } else if(biome == Biome.SUNFLOWER_PLAINS && random.nextInt(8) == 0) {
+                        } else if (biome == Biome.SUNFLOWER_PLAINS && random.nextInt(8) == 0) {
                             b = b.getRelative(BlockFace.UP);
                             Bisected bisected = (Bisected) Material.SUNFLOWER.createBlockData();
                             bisected.setHalf(Bisected.Half.BOTTOM);
@@ -154,13 +157,13 @@ public class FloraPopulator extends OverworldPopulator {
                             bisected = (Bisected) Material.SUNFLOWER.createBlockData();
                             bisected.setHalf(Bisected.Half.TOP);
                             FastBlockModifier.change(b, bisected);
-                        } else if(biome == Biome.SUNFLOWER_PLAINS && random.nextInt(85) == 0) {
+                        } else if (biome == Biome.SUNFLOWER_PLAINS && random.nextInt(85) == 0) {
                             Structure.OAK_TREE_1.spawn(loc.clone().add(0, 1, 0), true);
                         } else {
                             int v;
-                            if(biome == Biome.FLOWER_FOREST) {
+                            if (biome == Biome.FLOWER_FOREST) {
                                 v = RandomUtil.rand(random, 1, 120);
-                            } else if(BiomeCollection.FOREST.contains(biome)) {
+                            } else if (BiomeCollection.FOREST.contains(biome)) {
                                 v = RandomUtil.rand(random, 1, 105);
                             } else {
                                 v = RandomUtil.rand(random, 1, 100);

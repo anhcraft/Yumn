@@ -1,8 +1,8 @@
 package dev.anhcraft.yumn.biomes.land;
 
-import dev.anhcraft.yumn.generators.overworld.OverworldContext;
-import dev.anhcraft.yumn.generators.overworld.OverworldGenerator;
-import dev.anhcraft.yumn.utils.noise.NoiseProvider;
+import dev.anhcraft.yumn.generators.Context;
+import dev.anhcraft.yumn.generators.WorldGenerator;
+import dev.anhcraft.yumn.utils.noise.NoiseGenerator;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.jetbrains.annotations.Nullable;
@@ -13,14 +13,9 @@ public class Plains extends LandBiomeT1 {
     }
 
     @Override
-    public int getHeightRatioBuff(OverworldContext context, @Nullable NoiseProvider biomeNoise, int localX, int localZ, double noise){
-        return 3;
-    }
-
-    @Override
-    public void generate(OverworldContext context, int localX, int localZ, double noise) {
-        OverworldGenerator gen = context.getGenerator();
-        if(gen.getHeight(noise) <= gen.WATER_LEVEL){
+    public void generate(Context context, int localX, int localZ, double noise) {
+        WorldGenerator gen = context.getWorldGenerator();
+        if (gen.getHeight(noise) <= gen.WATER_LEVEL) {
             super.generate(context, localX, localZ, noise);
         } else {
             context.newLayerBuilder().at(localX, localZ)

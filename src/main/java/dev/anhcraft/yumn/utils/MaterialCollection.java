@@ -135,30 +135,23 @@ public enum MaterialCollection {
     WOODEN_TOOLS(Material.WOODEN_AXE, Material.WOODEN_HOE, Material.WOODEN_PICKAXE, Material.WOODEN_SHOVEL),
     WOOL("*_WOOL");
 
-    private static Set<Material> join(MaterialCollection... collections){
-        return Stream.of(collections).flatMap(MaterialCollection::stream).collect(ImmutableSet.toImmutableSet());
-    }
-
     public static final Set<Material> ARMOR = join(LEATHER_ARMOR, CHAINMAIL_ARMOR, IRON_ARMOR, GOLDEN_ARMOR, DIAMOND_ARMOR);
     public static final Set<Material> FOOD = join(RAW_FOOD, COOKED_FOOD);
     public static final Set<Material> MOSSY = join(MOSSY_COBBLESTONE, MOSSY_STONE_BRICK);
     public static final Set<Material> TOOLS = join(WOODEN_TOOLS, STONE_TOOLS, IRON_TOOLS, GOLDEN_TOOLS, DIAMOND_TOOLS);
-
     private final Set<Material> materialSet = EnumSet.noneOf(Material.class);
     private final List<Material> materialList = new ArrayList<>();
-    //public List<String> stringObjects = new ArrayList<>();
-
     MaterialCollection(Object... objects) {
         for (Object obj : objects) {
-            if(obj instanceof Material) {
+            if (obj instanceof Material) {
                 //stringObjects.add("Material."+((Material) obj).name());
                 materialSet.add((Material) obj);
             } else {
                 //stringObjects.add("\""+obj.toString()+"\"");
                 Pattern pattern = Pattern.compile(obj.toString().replace("*", "(.+)"));
-                for (Material mt : Material.values()){
-                    if(mt.isLegacy()) continue;
-                    if(pattern.matcher(mt.name()).matches()){
+                for (Material mt : Material.values()) {
+                    if (mt.isLegacy()) continue;
+                    if (pattern.matcher(mt.name()).matches()) {
                         materialSet.add(mt);
                     }
                 }
@@ -166,33 +159,38 @@ public enum MaterialCollection {
         }
         materialList.addAll(materialSet);
     }
+    //public List<String> stringObjects = new ArrayList<>();
+
+    private static Set<Material> join(MaterialCollection... collections) {
+        return Stream.of(collections).flatMap(MaterialCollection::stream).collect(ImmutableSet.toImmutableSet());
+    }
 
     @NotNull
-    public Stream<Material> stream(){
+    public Stream<Material> stream() {
         return materialSet.stream();
     }
 
     @NotNull
-    public <R, A> R collect(Collector<Material, A, R> collector){
+    public <R, A> R collect(Collector<Material, A, R> collector) {
         return materialSet.stream().collect(collector);
     }
 
-    public boolean contains(@NotNull Material material){
+    public boolean contains(@NotNull Material material) {
         return materialSet.contains(material);
     }
 
     @NotNull
-    public Material randomPick(@NotNull XoRoShiRo128StarStarRandomGenerator randomizer){
+    public Material randomPick(@NotNull XoRoShiRo128StarStarRandomGenerator randomizer) {
         return RandomUtil.rand(randomizer, materialList);
     }
 
     @NotNull
-    public List<Material> asList(){
+    public List<Material> asList() {
         return ImmutableList.copyOf(materialList);
     }
 
     @NotNull
-    public Set<Material> asSet(){
+    public Set<Material> asSet() {
         return ImmutableSet.copyOf(materialSet);
     }
 

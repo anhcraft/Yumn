@@ -18,11 +18,11 @@ public class RelativePos {
     private static final int Z_OP = 1;
     private static final int[] SIGN = new int[]{1, -1};
 
-    public static int getX(int v){
+    public static int getX(int v) {
         return SIGN[(v & NX_OP) >> 3] * ((v & X_OP) >> 2);
     }
 
-    public static int getZ(int v){
+    public static int getZ(int v) {
         return SIGN[(v & NZ_OP) >> 1] * (v & Z_OP);
     }
 }

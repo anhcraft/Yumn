@@ -13,11 +13,12 @@ import java.util.Date;
 import java.util.List;
 
 public class Logger {
-    public static final List<String> logQueue = new ArrayList<>();
+    public static final List<String> LOG_QUEUE = new ArrayList<>();
     public static final Object LOCK = new Object();
-    private static final SimpleDateFormat full_date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    private static final SimpleDateFormat date = new SimpleDateFormat("dd-MM-yyyy");
-    private static final Calendar calendar = Calendar.getInstance();
+    public static final List<Logger> loggers = new ArrayList<>();
+    private static final SimpleDateFormat FULL_DATE = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    private static final SimpleDateFormat DATE = new SimpleDateFormat("dd-MM-yyyy");
+    private static final Calendar CALENDAR = Calendar.getInstance();
     private static boolean bukkitSide = true;
     private static String lastDate;
     private static int lastVersion;
@@ -30,27 +31,33 @@ public class Logger {
         }
     }
 
+    public String id;
+    public Logger(String id) {
+        this.id = id;
+        loggers.add(this);
+    }
+
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void printQueue() {
         synchronized (LOCK) {
-            if(logQueue.isEmpty()) return;
+            if (LOG_QUEUE.isEmpty()) return;
             Date dt = new Date();
-            calendar.setTime(dt);
-            File dir = new File(Yumn.getInstance().getDataFolder(), "logs" + File.separator + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.YEAR));
+            CALENDAR.setTime(dt);
+            File dir = new File(Yumn.getInstance().getDataFolder(), "logs" + File.separator + CALENDAR.get(Calendar.MONTH) + "-" + CALENDAR.get(Calendar.YEAR));
             dir.mkdirs();
-            String date = Logger.date.format(dt);
+            String date = Logger.DATE.format(dt);
             File file;
-            if(date.equals(lastDate)) {
-                file = new File(dir, lastVersion == 0 ? (date + ".txt") : (date + " ("+(lastVersion)+").txt"));
+            if (date.equals(lastDate)) {
+                file = new File(dir, lastVersion == 0 ? (date + ".txt") : (date + " (" + (lastVersion) + ").txt"));
             } else {
                 file = new File(dir, date + ".txt");
                 lastVersion = 0;
             }
             int i = 0;
             while (true) {
-                if(file.exists()) {
-                    if(file.length() > 1000000) {
-                        file = new File(dir, date + " ("+(++i)+").txt");
+                if (file.exists()) {
+                    if (file.length() > 1000000) {
+                        file = new File(dir, date + " (" + (++i) + ").txt");
                         continue;
                     }
                 } else {
@@ -66,7 +73,7 @@ public class Logger {
             lastVersion = i;
             try {
                 FileWriter fw = new FileWriter(file, true);
-                for (String s : logQueue) {
+                for (String s : LOG_QUEUE) {
                     fw.write(s);
                     fw.write(System.lineSeparator());
                 }
@@ -74,25 +81,27 @@ public class Logger {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            logQueue.clear();
+            LOG_QUEUE.clear();
         }
     }
 
-    public static final List<Logger> loggers = new ArrayList<>();
-    public String id;
-
-    public Logger(String id){
-        this.id = id;
-        loggers.add(this);
-    }
-
-    public void log(String format, Object... objects){
-        if(!bukkitSide) {
-            System.out.println("[#"+id+" "+ full_date.format(new Date())+"] " + String.format(format, objects));
+    public void log(String str) {
+        if (!bukkitSide) {
+            System.out.println("[#" + id + " " + FULL_DATE.format(new Date()) + "] " + str);
             return;
         }
         synchronized (LOCK) {
-            logQueue.add("[#"+id+" "+ full_date.format(new Date())+"] " + String.format(format, objects));
+            LOG_QUEUE.add("[#" + id + " " + FULL_DATE.format(new Date()) + "] " + str);
+        }
+    }
+
+    public void logf(String format, Object... objects) {
+        if (!bukkitSide) {
+            System.out.println("[#" + id + " " + FULL_DATE.format(new Date()) + "] " + String.format(format, objects));
+            return;
+        }
+        synchronized (LOCK) {
+            LOG_QUEUE.add("[#" + id + " " + FULL_DATE.format(new Date()) + "] " + String.format(format, objects));
         }
     }
 }

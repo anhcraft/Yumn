@@ -8,33 +8,33 @@ import org.bukkit.craftbukkit.v1_16_R1.block.CraftBlock;
 import org.bukkit.craftbukkit.v1_16_R1.block.data.CraftBlockData;
 
 public class FastBlockModifier {
-    public static IBlockData change(org.bukkit.World world, int x, int y, int z, Material material){
+    public static IBlockData change(org.bukkit.World world, int x, int y, int z, Material material) {
         return change(world, new BlockPosition(x, y, z), material.createBlockData());
     }
 
-    public static IBlockData change(org.bukkit.World world, int x, int y, int z, BlockData blockData){
+    public static IBlockData change(org.bukkit.World world, int x, int y, int z, BlockData blockData) {
         return change(world, new BlockPosition(x, y, z), blockData);
     }
 
-    public static IBlockData change(org.bukkit.block.Block block, Material material){
+    public static IBlockData change(org.bukkit.block.Block block, Material material) {
         return change(block.getWorld(), ((CraftBlock) block).getPosition(), material.createBlockData());
     }
 
-    public static IBlockData change(org.bukkit.block.Block block, BlockData blockData){
+    public static IBlockData change(org.bukkit.block.Block block, BlockData blockData) {
         return change(block.getWorld(), ((CraftBlock) block).getPosition(), blockData);
     }
 
-    public static IBlockData change(org.bukkit.World world, BlockPosition position, Material material){
+    public static IBlockData change(org.bukkit.World world, BlockPosition position, Material material) {
         return change(world, position, material.createBlockData());
     }
 
-    public static IBlockData change(World world, BlockPosition position, BlockData blockData){
+    public static IBlockData change(World world, BlockPosition position, BlockData blockData) {
         Chunk nmsChunk = world.getChunkAt(position.getX() >> 4, position.getZ() >> 4);
         IBlockData ibd = ((CraftBlockData) blockData).getState();
         return setType(position, ibd, true, nmsChunk);
     }
 
-    public static IBlockData change(org.bukkit.World world, BlockPosition position, BlockData blockData){
+    public static IBlockData change(org.bukkit.World world, BlockPosition position, BlockData blockData) {
         World nmsWorld = ((CraftWorld) world).getHandle();
         Chunk nmsChunk = nmsWorld.getChunkAt(position.getX() >> 4, position.getZ() >> 4);
         IBlockData ibd = ((CraftBlockData) blockData).getState();
@@ -66,7 +66,7 @@ public class FastBlockModifier {
             chunk.heightMap.get(HeightMap.Type.OCEAN_FLOOR).a(i, j, k, iblockdata);
             chunk.heightMap.get(HeightMap.Type.WORLD_SURFACE).a(i, j, k, iblockdata);
 
-            if(updateLight) {
+            if (updateLight) {
                 chunk.world.getChunkProvider().getLightEngine().a(blockposition, true);
             }
 
@@ -98,7 +98,7 @@ public class FastBlockModifier {
                 if (block instanceof ITileEntity) {
                     tileentity = chunk.a(blockposition, Chunk.EnumTileEntityState.CHECK);
                     if (tileentity == null) {
-                        tileentity = ((ITileEntity)block).createTile(chunk.world);
+                        tileentity = ((ITileEntity) block).createTile(chunk.world);
                         chunk.world.setTileEntity(blockposition, tileentity);
                     } else {
                         tileentity.invalidateBlockCache();

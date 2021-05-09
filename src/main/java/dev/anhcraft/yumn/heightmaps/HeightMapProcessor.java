@@ -4,21 +4,20 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import dev.anhcraft.jvmkit.utils.Array2d;
 import dev.anhcraft.yumn.generators.Context;
-import dev.anhcraft.yumn.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiFunction;
 
-public abstract class HeightMapProcessor<T extends Context<?>> {
+public abstract class HeightMapProcessor {
     private final Table<Integer, Integer, ChunkHeightMap> neighbors = HashBasedTable.create();
     private final BiFunction<Integer, Integer, ChunkHeightMap> heightMapProvider;
     private final ChunkHeightMap originChunk;
-    private final T context;
+    private final Context context;
     private int globalX;
     private int globalZ;
 
-    public HeightMapProcessor(ChunkHeightMap originChunk, T context, BiFunction<Integer, Integer, ChunkHeightMap> heightMapProvider) {
+    public HeightMapProcessor(ChunkHeightMap originChunk, Context context, BiFunction<Integer, Integer, ChunkHeightMap> heightMapProvider) {
         this.originChunk = originChunk;
         this.context = context;
         this.heightMapProvider = heightMapProvider;
@@ -26,13 +25,13 @@ public abstract class HeightMapProcessor<T extends Context<?>> {
 
     @Nullable
     private ChunkHeightMap getHeightMap(int chunkX, int chunkZ) {
-        if(chunkX == context.getChunkX() && chunkZ == context.getChunkZ()) return originChunk;
+        if (chunkX == context.getChunkX() && chunkZ == context.getChunkZ()) return originChunk;
         int nx = chunkX - context.getChunkX();
         int nz = chunkZ - context.getChunkZ();
         ChunkHeightMap whm = neighbors.get(nx, nz);
-        if(whm == null) {
+        if (whm == null) {
             whm = heightMapProvider.apply(chunkX, chunkZ);
-            if(whm == null) {
+            if (whm == null) {
                 return null;
             }
             neighbors.put(nx, nz, whm);
@@ -41,7 +40,7 @@ public abstract class HeightMapProcessor<T extends Context<?>> {
     }
 
     @NotNull
-    public T getContext() {
+    public Context getContext() {
         return context;
     }
 

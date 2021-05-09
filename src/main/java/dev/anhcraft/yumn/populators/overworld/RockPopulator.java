@@ -2,9 +2,8 @@ package dev.anhcraft.yumn.populators.overworld;
 
 import com.google.common.collect.ImmutableSet;
 import dev.anhcraft.yumn.Structure;
-import dev.anhcraft.yumn.generators.overworld.OverworldGenerator;
+import dev.anhcraft.yumn.generators.WorldGenerator;
 import dev.anhcraft.yumn.populators.OverworldPopulator;
-import dev.anhcraft.yumn.utils.RandomUtil;
 import it.unimi.dsi.util.XoRoShiRo128StarStarRandomGenerator;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -23,13 +22,14 @@ public class RockPopulator extends OverworldPopulator {
             Material.DIRT,
             Material.COARSE_DIRT
     );
-    public RockPopulator(OverworldGenerator generator) {
+
+    public RockPopulator(WorldGenerator generator) {
         super(generator);
     }
 
     @Override
     public void populate(@NotNull World world, @NotNull XoRoShiRo128StarStarRandomGenerator random, @NotNull Chunk chunk) {
-        if(random.nextInt(7) == 0) {
+        if (random.nextInt(15) == 0) {
             boolean found = false;
             Location start = new Location(
                     world,

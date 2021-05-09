@@ -1,14 +1,14 @@
 package dev.anhcraft.yumn.heightmaps.renovation;
 
 import dev.anhcraft.yumn.generators.Context;
+import dev.anhcraft.yumn.heightmaps.ChunkHeightMap;
 import dev.anhcraft.yumn.heightmaps.HeightMapCell;
 import dev.anhcraft.yumn.heightmaps.HeightMapProcessor;
-import dev.anhcraft.yumn.heightmaps.ChunkHeightMap;
 
 import java.util.function.BiFunction;
 
-public class BiomeEdgeMarker extends HeightMapProcessor<Context<?>> {
-    public BiomeEdgeMarker(ChunkHeightMap originChunk, Context<?> context, BiFunction<Integer, Integer, ChunkHeightMap> heightMapProvider) {
+public class BiomeEdgeMarker extends HeightMapProcessor {
+    public BiomeEdgeMarker(ChunkHeightMap originChunk, Context context, BiFunction<Integer, Integer, ChunkHeightMap> heightMapProvider) {
         super(originChunk, context, heightMapProvider);
     }
 

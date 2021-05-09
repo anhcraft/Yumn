@@ -11,10 +11,9 @@ public class OceanBiomes extends BiomeCategory {
         registerBiome(4, DeepOcean.class);
         registerBiome(5, Ocean.class);
         registerBiome(6, Shallow.class);
-        registerBiome(7, FrozenShallow.class);
 
-        registerGroup(0, 0, 1, 5, 2, 2, 3, 3, 4, 4);
-        registerGroup(0.6, 0, 1, 5);
-        registerGroup(0.99, 0, 1, 5, 6, 6, 6, 7, 7);
+        registerGroup(0.4, 0, 1, 5, 2, 2, 3, 3, 4, 4);
+        registerGroup(0.99, 0, 1, 5);
+        registerGroup(1, 0, 1, 5, 6, 6);
     }
 }

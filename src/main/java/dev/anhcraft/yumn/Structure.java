@@ -49,8 +49,8 @@ public enum Structure {
         int y = Math.abs(offsetY);
         outer:
         for (int k = 0; k <= y; k++) {
-            for(int i = -radiusCheck; i <= radiusCheck; i++){
-                for(int j = -radiusCheck; j <= radiusCheck; j++) {
+            for (int i = -radiusCheck; i <= radiusCheck; i++) {
+                for (int j = -radiusCheck; j <= radiusCheck; j++) {
                     center.add(i, vertDir * k, j);
                     Block b = center.getBlock();
                     if (!b.isEmpty() && !b.isLiquid() && !b.isPassable()) {

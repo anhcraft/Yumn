@@ -5,15 +5,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public class BiomeChoice {
-    private final YumnBiome<?> biome;
+    private final YumnBiome biome;
     private double chance;
 
-    public BiomeChoice(@NotNull YumnBiome<?> biome) {
+    public BiomeChoice(@NotNull YumnBiome biome) {
         this.biome = biome;
     }
 
     @NotNull
-    public YumnBiome<?> getBiome() {
+    public YumnBiome getBiome() {
         return biome;
     }
 

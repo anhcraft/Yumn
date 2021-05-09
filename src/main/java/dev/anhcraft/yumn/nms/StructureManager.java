@@ -61,7 +61,7 @@ public class StructureManager {
 
     public static void saveStructure(@NotNull String name) {
         NBTTagCompound compound = getStructure(name);
-        if(compound == null) return;
+        if (compound == null) return;
         File f = new File(Yumn.getInstance().structDir, name + ".struct");
         try {
             //noinspection ResultOfMethodCallIgnored
@@ -101,14 +101,14 @@ public class StructureManager {
                 for (int z = minZ; z <= maxZ; z++) {
                     BlockPosition pos = new BlockPosition(x, y, z);
                     IBlockData data = world.getType(pos);
-                    if(!data.isAir()) {
+                    if (!data.isAir()) {
                         NBTTagCompound b = new NBTTagCompound();
                         b.setInt("x", x - minX);
                         b.setInt("y", y - minY);
                         b.setInt("z", z - minZ);
                         b.setString("data", CraftBlockData.fromData(data).getAsString());
                         TileEntity te = world.getTileEntity(pos);
-                        if(te != null) {
+                        if (te != null) {
                             NBTTagCompound teb = new NBTTagCompound();
                             te.save(teb);
                             teb.remove("x");
@@ -131,7 +131,7 @@ public class StructureManager {
 
     public static boolean pasteStructure(@NotNull Location location, @NotNull String name, boolean fast) {
         NBTTagCompound compound = STRUCTURES.get(name);
-        if(compound == null) {
+        if (compound == null) {
             return false;
         }
         pasteStructure(location, compound, fast);
@@ -145,14 +145,14 @@ public class StructureManager {
     public static void pasteStructure(@NotNull org.bukkit.World w, @NotNull NBTTagCompound root, @NotNull BlockPosition origin, boolean fast) {
         World world = ((CraftWorld) w).getHandle();
         NBTTagCompound blocks = root.getCompound("blocks");
-        for(String s : blocks.getKeys()){
+        for (String s : blocks.getKeys()) {
             NBTTagCompound b = blocks.getCompound(s);
             BlockPosition pos = origin.a(
                     (double) b.getInt("x"), // to match the method a(double, double, double)
                     b.getInt("y"),
                     b.getInt("z")
             );
-            if(fast) {
+            if (fast) {
                 FastBlockModifier.change(world, pos, Bukkit.createBlockData(b.getString("data")));
             } else {
                 IBlockData old = world.getType(pos);
@@ -163,7 +163,7 @@ public class StructureManager {
                 }
             }
             TileEntity te = world.getTileEntity(pos);
-            if(te != null) {
+            if (te != null) {
                 NBTTagCompound tileEntity = b.getCompound("tileEntity").clone();
                 tileEntity.setInt("x", pos.getX());
                 tileEntity.setInt("y", pos.getY());

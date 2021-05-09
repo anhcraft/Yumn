@@ -7,51 +7,25 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class HeightMapCell {
-    private final Set<YumnBiome<?>> nearbyBiomes = new HashSet<>();
-    private double oldTerrainNoise;
-    private double terrainNoise;
-    private double continentNoise;
-    private YumnBiome<?> biome;
+    private final Set<YumnBiome> nearbyBiomes = new HashSet<>();
+    private double noise;
+    private YumnBiome biome;
     private boolean biomeEdge;
     private boolean sharpness;
     private boolean cliff;
     private int[] cliffDir;
 
-    public HeightMapCell(double terrainNoise, double continentNoise, @NotNull YumnBiome<?> biome) {
-        this.terrainNoise = terrainNoise;
-        oldTerrainNoise = terrainNoise;
-        this.continentNoise = continentNoise;
+    public HeightMapCell(double noise, @NotNull YumnBiome biome) {
+        this.noise = noise;
         this.biome = biome;
     }
 
-    @Deprecated
-    public double getOldTerrainNoise() {
-        return oldTerrainNoise;
+    public double getNoise() {
+        return noise;
     }
 
-    public double getTerrainNoise() {
-        return terrainNoise;
-    }
-
-    public double getContinentNoise() {
-        return continentNoise;
-    }
-
-    @Deprecated
-    public void setOldTerrainNoise(double oldTerrainNoise) {
-        this.oldTerrainNoise = oldTerrainNoise;
-    }
-
-    public void setTerrainNoise(double terrainNoise) {
-        this.terrainNoise = terrainNoise;
-    }
-
-    public void setContinentNoise(double continentNoise) {
-        this.continentNoise = continentNoise;
-    }
-
-    public void setBiome(YumnBiome<?> biome) {
-        this.biome = biome;
+    public void setNoise(double noise) {
+        this.noise = noise;
     }
 
     public boolean isBiomeEdge() {
@@ -63,12 +37,16 @@ public class HeightMapCell {
     }
 
     @NotNull
-    public YumnBiome<?> getBiome() {
+    public YumnBiome getBiome() {
         return biome;
     }
 
+    public void setBiome(YumnBiome biome) {
+        this.biome = biome;
+    }
+
     @NotNull
-    public Set<YumnBiome<?>> getNearbyBiomes() {
+    public Set<YumnBiome> getNearbyBiomes() {
         return nearbyBiomes;
     }
 

@@ -9,12 +9,12 @@ public class WorldHeightMap {
     private final Table<Integer, Integer, Chunk> cache = HashBasedTable.create();
     private final Object safeLock = new Object();
 
-    public void put(int x, int z, ChunkHeightMap heightMap){
+    public void put(int x, int z, ChunkHeightMap heightMap) {
         cache.put(x, z, new Chunk(heightMap));
     }
 
     @Nullable
-    public ChunkHeightMap get(int x, int z){
+    public ChunkHeightMap get(int x, int z) {
         synchronized (safeLock) {
             Chunk chunk = cache.get(x, z);
             if (chunk != null) {
@@ -28,7 +28,7 @@ public class WorldHeightMap {
     /**
      * @deprecated Internal uses only!
      */
-    public void clean(){
+    public void clean() {
         synchronized (safeLock) {
             cache.values().removeIf(e -> System.currentTimeMillis() - e.lastRequest >= CLEAN_UP_TIME);
         }

@@ -2,17 +2,18 @@ package dev.anhcraft.yumn.populators.overworld;
 
 import com.google.common.collect.ImmutableSet;
 import dev.anhcraft.yumn.Structure;
-import dev.anhcraft.yumn.generators.overworld.OverworldGenerator;
+import dev.anhcraft.yumn.generators.WorldGenerator;
 import dev.anhcraft.yumn.populators.OverworldPopulator;
-import dev.anhcraft.yumn.utils.RandomUtil;
 import it.unimi.dsi.util.XoRoShiRo128StarStarRandomGenerator;
-import org.bukkit.*;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Set;
 
 public class CampfirePopulator extends OverworldPopulator {
@@ -33,13 +34,13 @@ public class CampfirePopulator extends OverworldPopulator {
             Biome.SNOWY_TAIGA_HILLS
     );
 
-    public CampfirePopulator(OverworldGenerator generator) {
+    public CampfirePopulator(WorldGenerator generator) {
         super(generator);
     }
 
     @Override
     public void populate(@NotNull World world, @NotNull XoRoShiRo128StarStarRandomGenerator random, @NotNull Chunk chunk) {
-        if(random.nextInt(15) == 0) {
+        if (random.nextInt(25) == 0) {
             boolean found = false;
             Location start = new Location(
                     world,

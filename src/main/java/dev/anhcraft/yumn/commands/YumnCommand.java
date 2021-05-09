@@ -7,14 +7,10 @@ import co.aikar.commands.annotation.Subcommand;
 import dev.anhcraft.jvmkit.utils.Pair;
 import dev.anhcraft.yumn.Yumn;
 import dev.anhcraft.yumn.nms.StructureManager;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import java.io.*;
 import java.util.Objects;
 
 @CommandAlias("yumn|ym")
@@ -24,7 +20,7 @@ public class YumnCommand extends BaseCommand {
     public void pos1(Player player) {
         Location location = player.getLocation();
         Pair<Location, Location> pair = Yumn.getInstance().playerSelections.get(player.getUniqueId());
-        if(pair == null) {
+        if (pair == null) {
             pair = new Pair<>(location, null);
             Yumn.getInstance().playerSelections.put(player.getUniqueId(), pair);
         } else {
@@ -38,7 +34,7 @@ public class YumnCommand extends BaseCommand {
     public void pos2(Player player) {
         Location location = player.getLocation();
         Pair<Location, Location> pair = Yumn.getInstance().playerSelections.get(player.getUniqueId());
-        if(pair == null) {
+        if (pair == null) {
             pair = new Pair<>(null, location);
             Yumn.getInstance().playerSelections.put(player.getUniqueId(), pair);
         } else {
@@ -58,7 +54,7 @@ public class YumnCommand extends BaseCommand {
     @CommandPermission("yumn.struct.paste")
     public void paste(Player player, String name) {
         Location location = player.getLocation();
-        if(StructureManager.pasteStructure(location, name, false)) {
+        if (StructureManager.pasteStructure(location, name, false)) {
             player.sendMessage(ChatColor.GREEN + "Structure " + name + " placed");
         } else {
             player.sendMessage(ChatColor.RED + "Structure not found");
@@ -69,19 +65,19 @@ public class YumnCommand extends BaseCommand {
     @CommandPermission("yumn.struct.save")
     public void save(Player player, String name) {
         Pair<Location, Location> pair = Yumn.getInstance().playerSelections.get(player.getUniqueId());
-        if(pair == null) {
+        if (pair == null) {
             player.sendMessage(ChatColor.RED + "Please select a region first");
             return;
         }
-        if(pair.getFirst() == null) {
+        if (pair.getFirst() == null) {
             player.sendMessage(ChatColor.RED + "Position 1 not existed");
             return;
         }
-        if(pair.getSecond() == null) {
+        if (pair.getSecond() == null) {
             player.sendMessage(ChatColor.RED + "Position 2 not existed");
             return;
         }
-        if(!Objects.equals(pair.getFirst().getWorld(), pair.getSecond().getWorld())) {
+        if (!Objects.equals(pair.getFirst().getWorld(), pair.getSecond().getWorld())) {
             player.sendMessage(ChatColor.RED + "Two positions are not in the same world");
             return;
         }
